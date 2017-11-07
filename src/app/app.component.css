@@ -1,0 +1,252 @@
+content{
+    background-color: #333;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    color:#ddd;
+}
+header{
+    height:100px;
+    position: absolute;
+    width: 100vw;
+    background-color: rgba(30,30,30,1);
+    display: flex;
+    flex-direction:row;
+}
+header i{
+    width:50px;
+    height:50px;
+}
+header div{
+    flex:100%;
+}
+footer{
+    height:100px;
+    position: absolute;
+    width: 100vw;
+    bottom:0;
+    background-color: rgba(30,30,30,1);
+}
+footer textarea{
+    color:whitesmoke;
+    outline:0px none transparent;
+    background-color: transparent;
+    border-style: none;
+    width:70vw;
+    height:80px;
+    margin-top:10px;
+    margin-left:10px;
+    font-size: 5vw;
+}
+footer i{
+    float:right;
+    right:0;
+}
+#content{
+    margin: 100px 0;
+    flex:100%;
+    overflow-y: scroll;
+}
+.taskDone{
+    color:rgba(255,255,255,.3);
+}
+.taskDoneOver{
+    text-decoration: line-through;
+}
+.item-list{
+    padding-top: 5px;
+    display: flex;
+    width: 90vw;
+    margin:10px 5vw;
+    border-top-left-radius: 2vw;
+    border-top-right-radius: 2vw;
+    background-color:rgb(30, 101, 207);
+    flex-direction: row;
+    height:60px;
+}
+._status{
+    padding-top:10px;
+    width:50px;
+    height:50px;
+}
+._desc{
+    -webkit-box-flex: 100%;
+    -ms-flex: 100%;
+    flex: 100%;
+    text-align: left;
+    line-height: 50px;
+    overflow-y: hidden;
+}
+._date{
+    background-color:rgb(30, 101, 207);
+    border-bottom-left-radius: 2vw;
+    border-bottom-right-radius: 2vw;
+    margin-top:-20px;
+    position:relative;
+    width:90vw;
+    margin:-20px 5vw 10px 5vw;
+    display: block;
+    text-align: right;
+    font-size: 3vw;
+    text-indent: 10px;
+    padding-right: 3vw;
+}
+#day{
+    text-align: center;
+    font-size: 80px;
+}
+#dayname{
+    font-size: 20px;
+}
+/*drawer starts*/
+    #drawer{
+        display: flex;
+        position: fixed;
+        top:0;
+        left:-75vw;
+        width:75vw;
+        height:101vh;
+        z-index: 99;
+        background-image: -webkit-gradient(linear, top, bottom, from(black), to(rgb(22, 50, 77)));
+        background-image: -webkit-linear-gradient(top, black, rgb(22, 50, 77));
+        background-image: -moz-linear-gradient(top, black, rgb(22, 50, 77));
+        background-image: linear-gradient(to bottom, black, rgb(22, 50, 77));
+    }
+    #drawer-header{
+        width:100%;
+        height:50px;
+        text-indent: 12px;
+        line-height: 50px;
+        position: absolute;
+        top:0;
+        color:whitesmoke;
+        display: flex;
+        flex-direction: row;
+
+    }
+    #drawer-header h1{
+        flex:100%;
+    }
+    #drawer i{
+        margin:12px;
+    }
+    #drawer ul{
+        margin-top:50px;
+        color:white;
+        text-transform: uppercase;
+        
+    }
+    #drawer ul li{
+        list-style: none;
+        margin:15px auto;
+        height:50px;
+        line-height: 50px;
+        text-indent: 5vw;
+    }
+    #drawer a{
+        text-decoration: none;
+        color:whitesmoke;
+    }
+    #drawer-footer{
+        background-color:black;
+        position:absolute;
+        bottom:6px;
+        width:75vw;
+        height:50px;
+        line-height: 50px;
+        text-align: center;
+        color:whitesmoke;
+    }
+    #drawer-shadow{
+        position: fixed;
+        top:0;
+        width:100vw;
+        height:101vh;
+        background-color: rgba(0,0,0,.6);
+        z-index:80;
+        opacity: 0;
+        right:100vw;
+    }
+/*drawer ends*/
+/*animations starts*/
+    @keyframes drawerOpen {
+        from {transform:translateX(0)}
+        to {transform:translateX(74vw)}
+    }
+    .drawer-open{
+        animation-name: drawerOpen;
+        animation-duration: 800ms;
+        animation-timing-function: ease-out;
+        animation-fill-mode: forwards;
+    }
+    @keyframes shadowOpen {
+        0% {
+            right:-100vw;
+            opacity: 0;
+        }
+        1%{
+            right:0;
+            opacity: 0;
+        }
+        100% {
+            right:0;
+            opacity: 1;
+        }
+    }
+    .shadow-open{
+        animation-name: shadowOpen;
+        animation-duration: 500ms;
+        animation-timing-function: ease-out;
+        animation-fill-mode: forwards;
+    }
+    @keyframes addTaskOpen {
+        0% {
+            right:-100vw;
+            opacity: 1;
+        }
+        100% {
+            right:0;
+            opacity: 1;
+        }
+    }
+    .addTask-open{
+        animation-name: addTaskOpen;
+        animation-duration: 500ms;
+        animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+        animation-fill-mode: forwards;
+    }
+    @keyframes itemUp {
+        0% {
+            top:inherit;
+            opacity: 1;
+        }
+        50%{
+            width: 100vw;
+            left:0;
+            top:100px;
+            position: fixed;
+        }
+        100% {
+            top:0;
+            height: 100px;
+            width: 100vw;
+            left:0;
+            position: fixed;
+            opacity: 1;
+            background-color: rgb(30, 101, 207);
+        }
+    }
+    .itemUp{
+        animation-name: itemUp;
+        animation-duration: 5500ms;
+        animation-timing-function: ease;
+        animation-fill-mode: forwards;
+    }
+    
+/*animations ends*/
+/*add task start*/
+add-task{
+    right:-100vw;
+}
+/*add task start*/

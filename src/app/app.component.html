@@ -1,20 +1,55 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{title}}!
-  </h1>
-  <img width="300" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<content>
+  <header>
+    <i class="material-icons" (click)="drawer_open()">menu</i>
+    <div>
+        <span id="day">{{dateNow | date:'dd':'+0900'}}</span>
+        <span id="dayname">{{dateNow | date:'EEEE':'+0900'}}</span>
+    </div>
+    <i class="material-icons" (click)="task_open()">add</i>
+  </header>
 
+
+  <div id="content" style="text-align:center">
+    <div  class="containter-task" *ngFor="let task of tasks | async" [class.taskDone]="task.status == 1">
+      <div class="item-list">
+        <i class="_status" *ngIf="task.status == 1" (click)="toogleTaskState(task)" class="material-icons">radio_button_checked</i>
+        <i class="_status" *ngIf="task.status == 0" (click)="toogleTaskState(task)" class="material-icons">radio_button_unchecked</i>
+        <div class="_desc" (click)="itemUp($event.target)" [class.taskDoneOver]="task.status == 1">{{task.desc}}</div>
+        <br>
+        <i class="material-icons" (click)="deleteTask(task)">delete</i>
+      </div>
+      <span class="_date" *ngIf="!task.date">no date</span><span *ngIf="task.date" class="_date">{{task.date | date:'dd-MMMM-yyyy'}}</span>
+    </div>
+  </div>
+
+  <footer>
+    <button *ngIf="authStatus == 0" (click)="login()">login</button>
+    <button *ngIf="authStatus == 1" (click)="logout()">exit</button>
+    <textarea [(ngModel)]="msgVal" placeholder="Quick add..."></textarea>
+    <i class="material-icons" (click)="addTask()" >add</i>
+    
+  </footer>
+  <div id="drawer">
+      <div id="drawer-header">
+          <h1>AppName</h1>
+          <i class="material-icons icon-blue" (click)="drawer_close()">close</i>
+          
+      </div>
+      <ul>
+          <li><a href="/catalog-list"><i class="material-icons icon-blue">home</i>home</a></li>
+          <li><a href="#"><i class="material-icons icon-blue">shopping_cart</i>cart</a></li>
+          <li><a href="#"><i class="material-icons icon-blue">done_all</i>checkout</a></li>
+          <li><a href="#"><i class="material-icons icon-blue">face</i>profile</a></li>
+          <li><a href="#"><i class="material-icons icon-blue">store</i>orders</a></li>
+          <li><a href="#"><i class="material-icons icon-blue">payment</i>payments</a></li>
+          <li><a href="#"><i class="material-icons icon-blue">help</i>faq</a></li>
+      </ul>
+      <div id="drawer-footer">
+          <h1>@feervalero</h1>
+      </div>
+  </div>
+
+  <div id="drawer-shadow" (click)="drawer_close()" ></div>  
+  <add-task id="task-add" ></add-task>
+</content>
